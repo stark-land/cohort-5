@@ -42,7 +42,7 @@ export function LoginButton() {
         .test-account-card {
           margin-bottom: 20px;
           padding: 20px;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(195, 172, 172, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -52,7 +52,6 @@ export function LoginButton() {
           margin: 0 0 16px 0;
           font-size: 16px;
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.9);
         }
         
         .test-account-card .wallet-details {
@@ -69,11 +68,9 @@ export function LoginButton() {
         
         .test-account-card .label {
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.7);
         }
         
         .test-account-card .value {
-          color: rgba(255, 255, 255, 0.95);
           user-select: text;
           font-family: monospace;
         }

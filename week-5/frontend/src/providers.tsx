@@ -21,10 +21,7 @@ export function Providers({ children }: ProvidersProps) {
       clientId={privyClientId}
       config={{
         loginMethods: ["email", "sms"],
-        embeddedWallets: {
-          createOnLogin: "users-without-wallets",
-        },
-      } as any}
+      }}
     >
       <StarknetProvider
         config={{
