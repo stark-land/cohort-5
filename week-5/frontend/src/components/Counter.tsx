@@ -1,49 +1,51 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStarknet } from "../privy-starknet-provider";
 import { useCounter } from "../hooks/useCounter";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { contractAddress } from "../env";
 
 export function Counter() {
   const { counter } = useCounter();
-  const { address, executeGaslessTransaction, txPending, txHash } =
-    useStarknet();
+  const { address, executeGaslessTransaction } = useStarknet();
   const [isPressed, setIsPressed] = useState(false);
 
-  useEffect(() => {
-    if (txHash) {
-      let txUrl = `https://sepolia.voyager.online/tx/${txHash}`;
-      toast.success(
-        <span>
-          Transaction pending... View tx:{" "}
-          <a
-            className="underline"
-            href={txUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {txHash.slice(0, 10)}…
-          </a>
-        </span>,
-        { autoClose: 6000 },
-      );
-    }
-  }, [txPending, txHash]);
-
   const handleIncrementGasless = async () => {
-    const result = await executeGaslessTransaction([
-      {
-        contractAddress,
-        entrypoint: "increment",
-        calldata: [],
-      },
-    ]);
+    const transactionPromise = async () => {
+      const result = await executeGaslessTransaction([
+        {
+          contractAddress,
+          entrypoint: "increment",
+          calldata: [],
+        },
+      ]);
 
-    if (result.success) {
-      console.log("✅ Gasless transaction confirmed!");
-    } else {
-      toast.error(result.error, { autoClose: 5000 });
-    }
+      if (!result.success) {
+        throw new Error(result.error || "Transaction failed");
+      }
+
+      return result;
+    };
+
+    toast.promise(transactionPromise(), {
+      loading: "Transaction pending...",
+      success: (data) => {
+        const txUrl = `https://sepolia.voyager.online/tx/${data.transactionHash}`;
+        return (
+          <span>
+            Transaction confirmed! View tx:{" "}
+            <a
+              className="underline"
+              href={txUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {data.transactionHash.slice(0, 10)}…
+            </a>
+          </span>
+        );
+      },
+      error: (err) => err.message || "Transaction failed",
+    });
   };
 
   if (!address) {
