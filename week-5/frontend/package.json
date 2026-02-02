@@ -13,7 +13,7 @@
     "@privy-io/react-auth": "^3.11.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-toastify": "^11.0.5",
+    "sonner": "^2.0.7",
     "starknet": "^9.2.1"
   },
   "devDependencies": {

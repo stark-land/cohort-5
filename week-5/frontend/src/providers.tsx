@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { StarknetProvider } from "./privy-starknet-provider";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "sonner";
 import {
   avnuApiKey,
   privyAppId,
@@ -29,13 +29,7 @@ export function Providers({ children }: ProvidersProps) {
         }}
       >
         {children}
-        <ToastContainer
-          position="bottom-right"
-          newestOnTop
-          closeOnClick
-          pauseOnHover
-          theme="dark"
-        />
+        <Toaster position="bottom-right" theme="dark" />
       </StarknetProvider>
     </PrivyProvider>
   );
