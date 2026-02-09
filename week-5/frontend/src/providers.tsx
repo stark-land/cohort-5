@@ -2,8 +2,9 @@ import type { ReactNode } from "react";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { StarknetProvider } from "./privy-starknet-provider";
 import { Toaster } from "sonner";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import {
-  avnuApiKey,
+  avnuApiKey as envAvnuApiKey,
   privyAppId,
   privyClientId,
   rpcUrl,
@@ -14,6 +15,11 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
+  const [avnuApiKey] = useLocalStorage<string>(
+    "avnuApiKey",
+    "",
+  );
+
   return (
     <PrivyProvider
       appId={privyAppId}
@@ -25,7 +31,7 @@ export function Providers({ children }: ProvidersProps) {
       <StarknetProvider
         config={{
           rpcUrl,
-          avnuApiKey,
+          avnuApiKey: avnuApiKey || envAvnuApiKey,
         }}
       >
         {children}

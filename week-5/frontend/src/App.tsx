@@ -5,6 +5,7 @@ import { useStarknet } from "./privy-starknet-provider";
 import { LoginButton } from "./components/LoginButton";
 import { AccountInfo } from "./components/AccountInfo";
 import { Counter } from "./components/Counter";
+import { SettingsButton } from "./components/SettingsButton";
 
 function App() {
   const { ready } = usePrivy();
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+      <SettingsButton />
       <Counter />
       <AccountInfo />
       <LoginButton />

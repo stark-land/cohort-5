@@ -192,7 +192,7 @@ export function StarknetProvider({ children, config }: StarknetProviderProps) {
         transactionHash: "",
         success: false,
         error:
-          "AVNU API key is required. Please add EXPO_PUBLIC_AVNU_API_KEY to your .env file.",
+          "AVNU API key is required. Please add VITE_AVNU_API_KEY to your .env file.",
       };
     }
 
